@@ -14,7 +14,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.junit.Assert.*;
 
 public class CryptoUtilTest {
 

@@ -24,7 +24,7 @@ public class ApplicationFacade {
 
     private String buildNumber;
 
-    private EurecaTokenGenerator fogbowTokenGenerator;
+    private EurecaTokenGenerator eurecaTokenGenerator;
 
     private ApplicationFacade() {
         this.buildNumber = PropertiesHolder.getInstance().getProperty(ConfigurationPropertyKeys.BUILD_NUMBER_KEY,
@@ -40,17 +40,17 @@ public class ApplicationFacade {
         }
     }
 
-    public void initializeFogbowTokenGenerator(SystemIdentityProviderPlugin systemIdentityProviderPlugin,
+    public void initializeEurecaTokenGenerator(SystemIdentityProviderPlugin systemIdentityProviderPlugin,
                                                SystemRolePlugin systemRoleProviderPlugin) {
         // The token generator plugin generates a raw token; the wrapper adds an expiration time,
         // a signature, and encrypts the token using the public key provided by the client.
-        this.fogbowTokenGenerator = new EurecaTokenGenerator(systemIdentityProviderPlugin,
+        this.eurecaTokenGenerator = new EurecaTokenGenerator(systemIdentityProviderPlugin,
                 systemRoleProviderPlugin);
     }
 
     public String createToken(Map<String, String> userCredentials, String publicKey) throws EurecaAsException {
         // There is no need to authenticate the user or authorize this operation
-        return this.fogbowTokenGenerator.createToken(userCredentials, publicKey);
+        return this.eurecaTokenGenerator.createToken(userCredentials, publicKey);
     }
 
     public String getPublicKey() throws InternalServerErrorAsException {

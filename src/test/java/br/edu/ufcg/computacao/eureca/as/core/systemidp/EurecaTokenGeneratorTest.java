@@ -34,7 +34,7 @@ public class EurecaTokenGeneratorTest {
         BDDMockito.given(ServiceAsymmetricKeysHolder.getInstance()).willReturn(Mockito.mock(ServiceAsymmetricKeysHolder.class));
 
         PowerMockito.mockStatic(AuthenticationUtil.class);
-        BDDMockito.given(AuthenticationUtil.createFogbowToken(Mockito.any(SystemUser.class), Mockito.any(RSAPrivateKey.class), Mockito.anyString())).willReturn(VALID_TOKEN);
+        BDDMockito.given(AuthenticationUtil.createEurecaToken(Mockito.any(SystemUser.class), Mockito.any(RSAPrivateKey.class), Mockito.anyString())).willReturn(VALID_TOKEN);
 
         SystemIdentityProviderPlugin identityProviderPlugin = Mockito.mock(SystemIdentityProviderPlugin.class);
         Mockito.when(identityProviderPlugin.getSystemUser(Mockito.anyMap())).thenReturn(new SystemUser(USER_ID, USER_NAME, IDENTITY_PROVIDER_ID));

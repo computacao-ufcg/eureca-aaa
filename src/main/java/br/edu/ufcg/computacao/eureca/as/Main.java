@@ -36,7 +36,7 @@ public class Main implements ApplicationRunner {
             // Setting up application facade
             ApplicationFacade applicationFacade = ApplicationFacade.getInstance();
             
-            applicationFacade.initializeFogbowTokenGenerator(systemIdentityProviderPlugin, 
+            applicationFacade.initializeEurecaTokenGenerator(systemIdentityProviderPlugin,
                     systemRoleProviderPlugin);
         } catch (FatalErrorException errorException) {
             LOGGER.fatal(errorException.getMessage(), errorException);

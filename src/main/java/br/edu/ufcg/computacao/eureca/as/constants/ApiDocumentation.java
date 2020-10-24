@@ -2,13 +2,13 @@ package br.edu.ufcg.computacao.eureca.as.constants;
 
 public class ApiDocumentation {
     public static class ApiInfo {
-        public static final String CONTACT_NAME = "Fogbow team";
-        public static final String CONTACT_URL = "https://www.fogbow.cloud";
-        public static final String CONTACT_EMAIL = "contact@fogbow.cloud";
-        public static final String API_TITLE = "Fogbow Authentication Service (AS) API";
+        public static final String CONTACT_NAME = "Eureca team";
+        public static final String CONTACT_URL = "https://computacao.ufcg.edu.br";
+        public static final String CONTACT_EMAIL = "contato@ccc.ufcg.edu.br";
+        public static final String API_TITLE = "Eureca Authentication Service (AS) API";
         public static final String API_DESCRIPTION = "This API allows clients to create authenticated tokens "
                                                    + "that they can later use to authenticate themselves with "
-                                                   + "other Fogbow services. The tokens are encrypted using "
+                                                   + "other Eureca services. The tokens are encrypted using "
                                                    + "the public key of the target service, thus, clients need "
                                                    + "a different token for each target service with which "
                                                    + "they need to interact.";

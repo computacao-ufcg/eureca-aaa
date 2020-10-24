@@ -55,7 +55,7 @@ public class AsExceptionToHttpErrorConditionTranslator extends ResponseEntityExc
     }
 
     /*
-    It should never happen because any Exception must be mapped to one of the above FogbowException extensions.
+    It should never happen because any Exception must be mapped to one of the above EurecaAsException extensions.
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ExceptionResponse> handleAnyException(Exception ex, WebRequest request) {

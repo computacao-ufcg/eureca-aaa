@@ -37,7 +37,7 @@ public class AuthenticationUtil {
         }
     }
 
-    public static String createFogbowToken(SystemUser systemUser, RSAPrivateKey privateKey, String publicKeyString)
+    public static String createEurecaToken(SystemUser systemUser, RSAPrivateKey privateKey, String publicKeyString)
             throws InternalServerErrorAsException {
         String tokenAttributes = SystemUser.serialize(systemUser);
         String expirationTime = generateExpirationTime();

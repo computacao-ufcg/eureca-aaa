@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
 
 @SpringBootApplication(exclude = RepositoryRestMvcAutoConfiguration.class)
-public class FogbowAsApplication {
+public class EurecaAsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FogbowAsApplication.class, args);
+        SpringApplication.run(EurecaAsApplication.class, args);
     }
 }

@@ -35,6 +35,6 @@ public class EurecaTokenGenerator {
     public String createToken(Map<String, String> userCredentials, String publicKeyString) throws EurecaAsException {
         SystemUser systemUser = this.embeddedPlugin.getSystemUser(userCredentials);
         systemRoleProvider.setUserRoles(systemUser);
-        return AuthenticationUtil.createFogbowToken(systemUser, this.privateKey, publicKeyString);
+        return AuthenticationUtil.createEurecaToken(systemUser, this.privateKey, publicKeyString);
     }
 }
