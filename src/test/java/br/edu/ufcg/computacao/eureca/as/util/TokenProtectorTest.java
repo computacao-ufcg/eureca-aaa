@@ -21,13 +21,7 @@ public class TokenProtectorTest {
 
     @Before
     public void setup() throws EurecaAsException, GeneralSecurityException, IOException {
-        ConfigureRSAKeyTest.init();
         this.tokenSeparator = EurecaAsConstants.TOKEN_SEPARATOR;
-    }
-
-    @After
-    public void tearDown(){
-        ConfigureRSAKeyTest.tearDown();
     }
 
     @Test

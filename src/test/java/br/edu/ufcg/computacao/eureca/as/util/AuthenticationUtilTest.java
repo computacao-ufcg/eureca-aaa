@@ -5,6 +5,7 @@ import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsExc
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.as.core.util.AuthenticationUtil;
 import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
 import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
 import br.edu.ufcg.computacao.eureca.as.stubs.FakeEurecaTokenGenerator;
 
@@ -21,24 +22,25 @@ public class AuthenticationUtilTest {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        ConfigureRSAKeyTest.init();
+        String keysPath = HomeDir.getPath();
+        String publicKeyPath = keysPath + "public.key";
+        String privateKeyPath = keysPath + "private.key";
 
-        ServiceAsymmetricKeysHolder.getInstance().setPublicKeyFilePath(ConfigureRSAKeyTest.publicKeyPath);
-        ServiceAsymmetricKeysHolder.getInstance().setPrivateKeyFilePath(ConfigureRSAKeyTest.privateKeyPath);
+        ServiceAsymmetricKeysHolder.getInstance().setPublicKeyFilePath(publicKeyPath);
+        ServiceAsymmetricKeysHolder.getInstance().setPrivateKeyFilePath(privateKeyPath);
     }
 
     @Before
     public void before() throws IOException, GeneralSecurityException {
-        this.publicKey = CryptoUtil.getPublicKey(ConfigureRSAKeyTest.publicKeyPath);
-        this.privateKey = CryptoUtil.getPrivateKey(ConfigureRSAKeyTest.privateKeyPath);
+        String keysPath = HomeDir.getPath();
+        String publicKeyPath = keysPath + "public.key";
+        String privateKeyPath = keysPath + "private.key";
 
-        this.publicKeyString = CryptoUtil.getKey(ConfigureRSAKeyTest.publicKeyPath);
+        this.publicKey = CryptoUtil.getPublicKey(publicKeyPath);
+        this.privateKey = CryptoUtil.getPrivateKey(privateKeyPath);
+
+        this.publicKeyString = CryptoUtil.getKey(publicKeyPath);
         this.tokenGenerator = new FakeEurecaTokenGenerator();
-    }
-
-    @AfterClass
-    public static void tearDown(){
-        ConfigureRSAKeyTest.tearDown();
     }
 
     @Test
@@ -53,7 +55,6 @@ public class AuthenticationUtilTest {
         } catch (Exception e){
             e.printStackTrace();
             System.out.println(e.getMessage());
-
         }
 
         // verify
