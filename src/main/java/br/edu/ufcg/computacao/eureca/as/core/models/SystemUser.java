@@ -1,8 +1,8 @@
 package br.edu.ufcg.computacao.eureca.as.core.models;
 
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.util.SerializedEntityHolder;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.SerializedEntityHolder;
 import com.google.gson.Gson;
 
 import java.util.Objects;
@@ -47,24 +47,24 @@ public class SystemUser extends User {
         return Objects.hash(identityProviderId, getId(), getName());
     }
 
-    public static String serialize(SystemUser systemUser) throws InternalServerErrorAsException {
+    public static String serialize(SystemUser systemUser) throws InternalServerErrorException {
         SerializedEntityHolder<SystemUser> serializedSystemUserHolder = new SerializedEntityHolder<SystemUser>(systemUser);
         String serializedSystemUser = serializedSystemUserHolder.toString();
 
         if(serializedSystemUser.length() > SystemUser.SERIALIZED_SYSTEM_USER_MAX_SIZE) {
-            throw new InternalServerErrorAsException(Messages.MAXIMUM_SIZE_EXCEEDED);
+            throw new InternalServerErrorException(Messages.MAXIMUM_SIZE_EXCEEDED);
         }
 
         return serializedSystemUser;
     }
 
-    public static SystemUser deserialize(String serializedSystemUser) throws InternalServerErrorAsException {
+    public static SystemUser deserialize(String serializedSystemUser) throws InternalServerErrorException {
         try {
             SerializedEntityHolder<SystemUser> serializedSystemUserHolder = (new Gson()).fromJson(serializedSystemUser, SerializedEntityHolder.class);
             SystemUser systemUser = serializedSystemUserHolder.getSerializedEntity();
             return systemUser;
         } catch (ClassNotFoundException e) {
-            throw new InternalServerErrorAsException(Messages.UNABLE_TO_FIND_SYSTEM_USER_CLASS);
+            throw new InternalServerErrorException(Messages.UNABLE_TO_FIND_SYSTEM_USER_CLASS);
         }
     }
 }

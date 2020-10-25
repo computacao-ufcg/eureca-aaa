@@ -5,8 +5,8 @@ import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.ApplicationFacade;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -29,7 +29,7 @@ public class Token {
     public ResponseEntity<br.edu.ufcg.computacao.eureca.as.api.http.response.Token> createTokenValue(
             @ApiParam(value = ApiDocumentation.Token.CREATE_REQUEST_BODY)
             @RequestBody TokenParameters request)
-            throws EurecaAsException {
+            throws EurecaException {
 
         try {
             LOGGER.info(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S, request.getCredentials().size()));
@@ -40,7 +40,7 @@ public class Token {
             return new ResponseEntity<>(token, HttpStatus.CREATED);
         } catch (Exception e) {
             LOGGER.info(String.format(Messages.OPERATION_RETURNED_ERROR_S, e.getMessage()), e);
-            throw new InternalServerErrorAsException(e.getMessage());
+            throw new InternalServerErrorException(e.getMessage());
         }
     }
 }

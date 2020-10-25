@@ -1,6 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.api.http;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.*;
+import br.edu.ufcg.computacao.eureca.common.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,28 +10,28 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class AsExceptionToHttpErrorConditionTranslator extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(UnauthorizedRequestAsException.class)
+    @ExceptionHandler(UnauthorizedRequestException.class)
     public final ResponseEntity<ExceptionResponse> handleAuthorizationException(Exception ex, WebRequest request) {
 
         ExceptionResponse errorDetails = new ExceptionResponse(ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(UnauthenticatedUserAsException.class)
+    @ExceptionHandler(UnauthenticatedUserException.class)
     public final ResponseEntity<ExceptionResponse> handleAuthenticationException(Exception ex, WebRequest request) {
 
         ExceptionResponse errorDetails = new ExceptionResponse(ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(ConfigurationErrorAsException.class)
+    @ExceptionHandler(ConfigurationErrorException.class)
     public final ResponseEntity<ExceptionResponse> handleQuotaExceededException(Exception ex, WebRequest request) {
 
         ExceptionResponse errorDetails = new ExceptionResponse(ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler({UnavailableProviderAsException.class})
+    @ExceptionHandler({UnavailableProviderException.class})
     public final ResponseEntity<ExceptionResponse> handleUnavailableProviderException(
             Exception ex, WebRequest request) {
 
@@ -39,7 +39,7 @@ public class AsExceptionToHttpErrorConditionTranslator extends ResponseEntityExc
         return new ResponseEntity<>(errorDetails, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    @ExceptionHandler({InvalidParameterAsException.class})
+    @ExceptionHandler({InvalidParameterException.class})
     public final ResponseEntity<ExceptionResponse> handleInvalidParameterException(
             Exception ex, WebRequest request) {
 
@@ -47,7 +47,7 @@ public class AsExceptionToHttpErrorConditionTranslator extends ResponseEntityExc
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InternalServerErrorAsException.class)
+    @ExceptionHandler(InternalServerErrorException.class)
     public final ResponseEntity<ExceptionResponse> handleUnexpectedException(Exception ex, WebRequest request) {
 
         ExceptionResponse errorDetails = new ExceptionResponse(ex.getMessage(), request.getDescription(false));

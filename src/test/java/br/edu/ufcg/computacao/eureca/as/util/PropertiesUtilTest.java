@@ -1,9 +1,8 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.FatalErrorException;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
-import br.edu.ufcg.computacao.eureca.as.core.util.PropertiesUtil;
-
+import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
+import br.edu.ufcg.computacao.eureca.common.util.PropertiesUtil;
 import org.junit.Test;
 import java.util.Properties;
 import org.junit.Assert;

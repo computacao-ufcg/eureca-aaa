@@ -1,10 +1,9 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
-
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class ServiceAsymmetricKeysHolderTest {
     }
 
     @Test
-    public void getPublicKey() throws IOException, GeneralSecurityException, InternalServerErrorAsException {
+    public void getPublicKey() throws IOException, GeneralSecurityException, InternalServerErrorException {
         //setup
         RSAPublicKey expectedPublicKey = CryptoUtil.getPublicKey(pubKeyPath);
 
@@ -44,7 +43,7 @@ public class ServiceAsymmetricKeysHolderTest {
     }
 
     @Test
-    public void getPrivateKey() throws IOException, GeneralSecurityException, InternalServerErrorAsException {
+    public void getPrivateKey() throws IOException, GeneralSecurityException, InternalServerErrorException {
         //setup
         RSAPrivateKey expectedPrivateKey = CryptoUtil.getPrivateKey(privKeyPath);
 

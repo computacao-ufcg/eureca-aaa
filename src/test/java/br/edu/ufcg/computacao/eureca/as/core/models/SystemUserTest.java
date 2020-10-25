@@ -1,7 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.core.models;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ public class SystemUserTest {
 
     // Test if a SystemUser is correctly serialized and later deserialized
     @Test
-    public void testSerializationDeserealizationOfSystemUserObject() throws InternalServerErrorAsException {
+    public void testSerializationDeserealizationOfSystemUserObject() throws InternalServerErrorException {
         // Setup
         SystemUser systemUser = createSystemUser();
 
@@ -26,8 +25,8 @@ public class SystemUserTest {
     }
 
     // Test if size of content is going to overflow the limit a SystemUSer is allowed
-    @Test(expected = InternalServerErrorAsException.class)
-    public void testCreateUserWithTooMuchData() throws InternalServerErrorAsException {
+    @Test(expected = InternalServerErrorException.class)
+    public void testCreateUserWithTooMuchData() throws InternalServerErrorException {
 
         // setup
         String FAKE_USER_NAME = getLongUserName();

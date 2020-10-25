@@ -4,10 +4,10 @@ import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
 import br.edu.ufcg.computacao.eureca.as.core.ApplicationFacade;
 import br.edu.ufcg.computacao.eureca.as.core.PluginInstantiator;
 import br.edu.ufcg.computacao.eureca.as.core.PropertiesHolder;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.FatalErrorException;
 import br.edu.ufcg.computacao.eureca.as.core.role.SystemRolePlugin;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
+import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.apache.log4j.Logger;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -30,14 +30,12 @@ public class Main implements ApplicationRunner {
             SystemIdentityProviderPlugin systemIdentityProviderPlugin =
                     PluginInstantiator.getSystemIdentityProviderPlugin();
             
-            SystemRolePlugin systemRoleProviderPlugin =
-                    PluginInstantiator.getSystemRolePlugin();
+            SystemRolePlugin systemRoleProviderPlugin = PluginInstantiator.getSystemRolePlugin();
 
             // Setting up application facade
             ApplicationFacade applicationFacade = ApplicationFacade.getInstance();
             
-            applicationFacade.initializeEurecaTokenGenerator(systemIdentityProviderPlugin,
-                    systemRoleProviderPlugin);
+            applicationFacade.initializeEurecaTokenGenerator(systemIdentityProviderPlugin, systemRoleProviderPlugin);
         } catch (FatalErrorException errorException) {
             LOGGER.fatal(errorException.getMessage(), errorException);
             tryExit();

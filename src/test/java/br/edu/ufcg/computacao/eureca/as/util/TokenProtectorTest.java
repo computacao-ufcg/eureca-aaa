@@ -1,14 +1,13 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
 import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
-import br.edu.ufcg.computacao.eureca.as.core.util.TokenProtector;
 
-import org.junit.After;
+import br.edu.ufcg.computacao.eureca.as.core.TokenProtector;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
@@ -20,13 +19,13 @@ public class TokenProtectorTest {
     private String tokenSeparator;
 
     @Before
-    public void setup() throws EurecaAsException, GeneralSecurityException, IOException {
+    public void setup() {
         this.tokenSeparator = EurecaAsConstants.TOKEN_SEPARATOR;
     }
 
     @Test
-    public void testEcryptAndDecrypt() throws IOException, GeneralSecurityException, InternalServerErrorAsException,
-            UnauthenticatedUserAsException {
+    public void testEcryptAndDecrypt() throws IOException, GeneralSecurityException, InternalServerErrorException,
+            UnauthenticatedUserException {
         // set up
         String keysPath = HomeDir.getPath();
         String pubKeyPath = keysPath + "public.key";
@@ -46,8 +45,8 @@ public class TokenProtectorTest {
     }
 
     @Test
-    public void testRewrap() throws GeneralSecurityException, InternalServerErrorAsException, IOException,
-            UnauthenticatedUserAsException {
+    public void testRewrap() throws GeneralSecurityException, InternalServerErrorException, IOException,
+            UnauthenticatedUserException {
         // set up
         String keysPath = HomeDir.getPath();
         String pubKeyPath = keysPath + "public.key";

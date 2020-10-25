@@ -1,9 +1,7 @@
 package br.edu.ufcg.computacao.eureca.as.core.systemidp;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.ConfigurationErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
 
 import java.util.Map;
 
@@ -17,5 +15,5 @@ public interface SystemIdentityProviderPlugin<T extends SystemUser> {
      * @return a SystemUser object that represents the successfully authenticated user and uniquely identifies
      * the user in the whole system.
      */
-    public T getSystemUser(Map<String, String> userCredentials) throws EurecaAsException;
+    public T getSystemUser(Map<String, String> userCredentials) throws EurecaException;
 }

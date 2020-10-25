@@ -1,7 +1,7 @@
 package br.edu.ufcg.computacao.eureca.as.core;
 
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.FatalErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;

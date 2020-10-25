@@ -17,11 +17,11 @@ import javax.naming.directory.SearchResult;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.core.PropertiesHolder;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.ConfigurationErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.exceptions.ConfigurationErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
 import org.apache.log4j.Logger;
 
 public class LdapSystemIdentityProviderPlugin implements SystemIdentityProviderPlugin<SystemUser> {
@@ -46,8 +46,8 @@ public class LdapSystemIdentityProviderPlugin implements SystemIdentityProviderP
     }
 
     @Override
-    public SystemUser getSystemUser(Map<String, String> userCredentials) throws UnauthenticatedUserAsException,
-            ConfigurationErrorAsException {
+    public SystemUser getSystemUser(Map<String, String> userCredentials) throws UnauthenticatedUserException,
+            ConfigurationErrorException {
 
         String userId = userCredentials.get(CRED_USERNAME);
         String password = userCredentials.get(CRED_PASSWORD);
@@ -59,8 +59,8 @@ public class LdapSystemIdentityProviderPlugin implements SystemIdentityProviderP
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public String ldapAuthenticate(String uid, String password) throws UnauthenticatedUserAsException,
-            ConfigurationErrorAsException {
+    public String ldapAuthenticate(String uid, String password) throws UnauthenticatedUserException,
+            ConfigurationErrorException {
 
         String contextFactory = "com.sun.jndi.ldap.LdapCtxFactory";
         String securityAuthentication = "simple";
@@ -95,7 +95,7 @@ public class LdapSystemIdentityProviderPlugin implements SystemIdentityProviderP
 
             if (dn == null || enm.hasMore()) {
                 // uid not found or not unique
-                throw new UnauthenticatedUserAsException(Messages.UNABLE_TO_LOAD_LDAP_INFO);
+                throw new UnauthenticatedUserException(Messages.UNABLE_TO_LOAD_LDAP_INFO);
             }
 
             // Bind with found DN and given password
@@ -109,11 +109,11 @@ public class LdapSystemIdentityProviderPlugin implements SystemIdentityProviderP
             return name;
 
         } catch (AuthenticationException e0) {
-            throw new UnauthenticatedUserAsException();
+            throw new UnauthenticatedUserException();
         } catch (NamingException e1) {
-            throw new ConfigurationErrorAsException(Messages.MISSING_LDAP_ENDPOINT);
+            throw new ConfigurationErrorException(Messages.MISSING_LDAP_ENDPOINT);
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e2) {
-            throw new ConfigurationErrorAsException(Messages.INVALID_ALGORITHM_OR_ENCODING);
+            throw new ConfigurationErrorException(Messages.INVALID_ALGORITHM_OR_ENCODING);
         }
     }
 

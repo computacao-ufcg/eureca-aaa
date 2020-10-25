@@ -1,9 +1,9 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
 
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
 import org.junit.Assert;
 import org.junit.Test;
 import javax.crypto.BadPaddingException;

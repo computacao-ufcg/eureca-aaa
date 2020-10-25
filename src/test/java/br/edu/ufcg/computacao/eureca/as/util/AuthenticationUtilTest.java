@@ -1,14 +1,14 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
+import br.edu.ufcg.computacao.eureca.as.core.AuthenticationUtil;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
-import br.edu.ufcg.computacao.eureca.as.core.util.AuthenticationUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
 import br.edu.ufcg.computacao.eureca.as.stubs.FakeEurecaTokenGenerator;
 
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.junit.*;
 import java.io.IOException;
 import java.security.*;
@@ -44,7 +44,7 @@ public class AuthenticationUtilTest {
     }
 
     @Test
-    public void testAuthenticationSuccessful() throws EurecaAsException {
+    public void testAuthenticationSuccessful() throws EurecaException {
         // set up
         String token = tokenGenerator.createToken(publicKeyString, 1);
 
@@ -61,8 +61,8 @@ public class AuthenticationUtilTest {
         Assert.assertNotEquals(null, systemUser);
     }
 
-    @Test(expected = UnauthenticatedUserAsException.class)
-    public void testExpiredToken() throws EurecaAsException {
+    @Test(expected = UnauthenticatedUserException.class)
+    public void testExpiredToken() throws EurecaException {
         // set up
         String token = tokenGenerator.createToken(publicKeyString, 0);
 
@@ -70,8 +70,8 @@ public class AuthenticationUtilTest {
         SystemUser systemUser = AuthenticationUtil.authenticate(publicKey, token);
     }
 
-    @Test(expected = UnauthenticatedUserAsException.class)
-    public void testInvalidSignature() throws EurecaAsException, GeneralSecurityException {
+    @Test(expected = UnauthenticatedUserException.class)
+    public void testInvalidSignature() throws EurecaException, GeneralSecurityException {
         // set up
         KeyPair keyPair = CryptoUtil.generateKeyPair();
         PublicKey differentKey = keyPair.getPublic();

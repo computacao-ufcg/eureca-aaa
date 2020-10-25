@@ -1,11 +1,11 @@
 package br.edu.ufcg.computacao.eureca.as.core.systemidp;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
+import br.edu.ufcg.computacao.eureca.as.core.AuthenticationUtil;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
-import br.edu.ufcg.computacao.eureca.as.core.role.SystemRolePlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.AuthenticationUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
 
+import br.edu.ufcg.computacao.eureca.as.core.role.SystemRolePlugin;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class EurecaTokenGeneratorTest {
     public static final String IDENTITY_PROVIDER_ID = "identityProviderId";
 
     @Test
-    public void testCreateToken() throws EurecaAsException {
+    public void testCreateToken() throws EurecaException {
         PowerMockito.mockStatic(ServiceAsymmetricKeysHolder.class);
         BDDMockito.given(ServiceAsymmetricKeysHolder.getInstance()).willReturn(Mockito.mock(ServiceAsymmetricKeysHolder.class));
 

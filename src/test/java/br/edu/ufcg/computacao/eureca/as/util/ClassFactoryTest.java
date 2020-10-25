@@ -1,9 +1,9 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
 import br.edu.ufcg.computacao.eureca.as.core.ClassFactory;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.FatalErrorException;
 import br.edu.ufcg.computacao.eureca.as.util.stubs.StubClassForFactory;
 
+import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

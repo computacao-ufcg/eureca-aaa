@@ -1,14 +1,16 @@
-package br.edu.ufcg.computacao.eureca.as.core.util;
+package br.edu.ufcg.computacao.eureca.as.core;
 
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
 import org.apache.commons.lang.StringUtils;
+
 import java.security.Key;
 
 public class TokenProtector {
     // Encrypts a token string so that only the possessor of a private key corresponding to the
     // public key given as parameter is able to read the token string.
-    public static String encrypt(Key key, String unprotectedToken, String tokenSeparator) throws InternalServerErrorAsException {
+    public static String encrypt(Key key, String unprotectedToken, String tokenSeparator) throws InternalServerErrorException {
         String randomKey;
         String encryptedToken;
         String encryptedKey;
@@ -18,13 +20,13 @@ public class TokenProtector {
             encryptedKey = CryptoUtil.encrypt(randomKey, key);
             return encryptedKey + tokenSeparator + encryptedToken;
         } catch (Exception e) {
-            throw new InternalServerErrorAsException();
+            throw new InternalServerErrorException();
         }
     }
 
     // Decrypts the token string using the provided key.
     public static String decrypt(Key key, String protectedToken, String tokenSeparator)
-            throws UnauthenticatedUserAsException {
+            throws UnauthenticatedUserException {
         String randomKey;
         String decryptedToken;
         String[] tokenParts = StringUtils.splitByWholeSeparator(protectedToken, tokenSeparator);
@@ -34,14 +36,14 @@ public class TokenProtector {
             decryptedToken = CryptoUtil.decryptAES(randomKey.getBytes("UTF-8"), tokenParts[1]);
             return decryptedToken;
         } catch (Exception e) {
-            throw new UnauthenticatedUserAsException();
+            throw new UnauthenticatedUserException();
         }
     }
 
     // Decrypts the token and re-encrypts it with a new publicKey; this is needed before forwarding the token
     // to another service.
     public static String rewrap(Key decryptKey, Key encryptKey, String protectedToken, String tokenSeparator)
-            throws UnauthenticatedUserAsException, InternalServerErrorAsException {
+            throws UnauthenticatedUserException, InternalServerErrorException {
         String unprotectedToken = decrypt(decryptKey, protectedToken, tokenSeparator);
         String newProtectedToken = encrypt(encryptKey, unprotectedToken, tokenSeparator);
         return newProtectedToken;

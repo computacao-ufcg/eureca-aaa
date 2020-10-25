@@ -9,13 +9,13 @@ import java.util.Map;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.core.PropertiesHolder;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.FatalErrorException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
 import br.edu.ufcg.computacao.eureca.as.core.models.ShibbolethSystemUser;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
+import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.apache.log4j.Logger;
 
 public class ShibbolethSystemIdentityProviderPlugin implements SystemIdentityProviderPlugin<ShibbolethSystemUser> {
@@ -46,7 +46,7 @@ public class ShibbolethSystemIdentityProviderPlugin implements SystemIdentityPro
 		this.identityProviderId = PropertiesHolder.getInstance().getProperty(ConfigurationPropertyKeys.PROVIDER_ID_KEY);
         try {
 			this.asPrivateKey = ServiceAsymmetricKeysHolder.getInstance().getPrivateKey();
-        } catch (InternalServerErrorAsException e) {
+        } catch (InternalServerErrorException e) {
             throw new FatalErrorException(
             		String.format(Messages.ERROR_READING_PRIVATE_KEY_FILE, e.getMessage()));
         }
@@ -60,7 +60,7 @@ public class ShibbolethSystemIdentityProviderPlugin implements SystemIdentityPro
 	}
 	
 	@Override
-	public ShibbolethSystemUser getSystemUser(Map<String, String> userCredentials) throws UnauthenticatedUserAsException {
+	public ShibbolethSystemUser getSystemUser(Map<String, String> userCredentials) throws UnauthenticatedUserException {
 		String tokenShibAppEncrypted = userCredentials.get(TOKEN_CREDENTIAL);
 		String keyShibAppEncrypted = userCredentials.get(KEY_CREDENTIAL);
 		String keySignatureShibApp = userCredentials.get(KEY_SIGNATURE_CREDENTIAL);
@@ -77,19 +77,19 @@ public class ShibbolethSystemIdentityProviderPlugin implements SystemIdentityPro
 		return createShibbolethSystemUser(tokenShibAppParameters);
 	}
 
-	protected void verifySecretShibAppToken(String[] tokenShibParameters) throws UnauthenticatedUserAsException {
+	protected void verifySecretShibAppToken(String[] tokenShibParameters) throws UnauthenticatedUserException {
 		String secret = tokenShibParameters[SECREC_ATTR_SHIB_INDEX];
 		boolean isValid = this.secretManager.verify(secret);
 		if (!isValid) {
         	LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException();
+            throw new UnauthenticatedUserException();
 		}
 	}
 
-	protected void checkTokenFormat(String[] tokenShibParameters) throws UnauthenticatedUserAsException {
+	protected void checkTokenFormat(String[] tokenShibParameters) throws UnauthenticatedUserException {
 		if (tokenShibParameters.length != SHIB_TOKEN_PARAMETERS_SIZE) {
         	LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException();
+            throw new UnauthenticatedUserException();
 		}
 	}
 
@@ -102,33 +102,33 @@ public class ShibbolethSystemIdentityProviderPlugin implements SystemIdentityPro
 		return new ShibbolethSystemUser(eduPrincipalName, commonName, this.identityProviderId, assertionUrl, samlAttributes);
 	}
 
-	protected void verifyShibAppKeyAuthenticity(String signature, String message) throws UnauthenticatedUserAsException {
+	protected void verifyShibAppKeyAuthenticity(String signature, String message) throws UnauthenticatedUserException {
 		try {
 			CryptoUtil.verify(this.shibAppPublicKey, message, signature);
 		} catch (Exception e) {
         	LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException(e.getMessage());
+            throw new UnauthenticatedUserException(e.getMessage());
 		}
 	}
 
-	protected String decryptTokenShib(String keyShib, String rasToken) throws UnauthenticatedUserAsException {
+	protected String decryptTokenShib(String keyShib, String rasToken) throws UnauthenticatedUserException {
 		String tokenShibApp = null;
 		try {
 			tokenShibApp = CryptoUtil.decryptAES(keyShib.getBytes(CryptoUtil.UTF_8), rasToken);
 		} catch (Exception e) {
         	LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException(e.getMessage());
+            throw new UnauthenticatedUserException(e.getMessage());
 		}
 		return tokenShibApp;
 	}
 	
-	protected String decryptKeyShib(String keyShibAppEncrypted) throws UnauthenticatedUserAsException {
+	protected String decryptKeyShib(String keyShibAppEncrypted) throws UnauthenticatedUserException {
 		String keyShibApp = null;
 		try {
 			keyShibApp = CryptoUtil.decrypt(keyShibAppEncrypted, this.asPrivateKey);
 		} catch (Exception e) {
         	LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException(e.getMessage());
+            throw new UnauthenticatedUserException(e.getMessage());
 		}
 		return keyShibApp;
 	}

@@ -3,18 +3,16 @@ package br.edu.ufcg.computacao.eureca.as.core.systemidp.plugins.localdb;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.core.PropertiesHolder;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InvalidParameterAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.UnauthenticatedUserAsException;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InvalidParameterException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
 import org.apache.log4j.Logger;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,18 +35,18 @@ public class LocalDBSystemIdentityProviderPlugin implements SystemIdentityProvid
     }
 
     @Override
-    public SystemUser getSystemUser(Map<String, String> userCredentials) throws InvalidParameterAsException,
-            UnauthenticatedUserAsException {
+    public SystemUser getSystemUser(Map<String, String> userCredentials) throws InvalidParameterException,
+            UnauthenticatedUserException {
         String username = userCredentials.get(USER_NAME_FIELD_KEY);
         String password = userCredentials.get(PASSWORD_FIELD_KEY);
 
         if (username == null || password == null) {
-            throw new InvalidParameterAsException(Messages.INVALID_CREDENTIALS);
+            throw new InvalidParameterException(Messages.INVALID_CREDENTIALS);
         }
 
         if (!isAuthenticated(username, password)) {
             LOGGER.error(Messages.AUTHENTICATION_ERROR);
-            throw new UnauthenticatedUserAsException();
+            throw new UnauthenticatedUserException();
         }
 
         return new SystemUser(username, username, this.identityProviderId);

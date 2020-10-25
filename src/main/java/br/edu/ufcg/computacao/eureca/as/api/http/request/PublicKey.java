@@ -4,8 +4,8 @@ import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.ApplicationFacade;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
@@ -25,7 +25,7 @@ public class PublicKey {
     @ApiOperation(value = ApiDocumentation.PublicKey.GET_OPERATION)
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<br.edu.ufcg.computacao.eureca.as.api.http.response.PublicKey> getPublicKey()
-            throws EurecaAsException {
+            throws EurecaException {
         try {
             LOGGER.info(Messages.RECEIVING_GET_PUBLIC_KEY_REQUEST);
             String publicKeyValue = ApplicationFacade.getInstance().getPublicKey();
@@ -34,7 +34,7 @@ public class PublicKey {
             return new ResponseEntity<>(publicKey, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.info(String.format(Messages.OPERATION_RETURNED_ERROR_S, e.getMessage()), e);
-            throw new InternalServerErrorAsException(e.getMessage());
+            throw new InternalServerErrorException(e.getMessage());
         }
     }
 }

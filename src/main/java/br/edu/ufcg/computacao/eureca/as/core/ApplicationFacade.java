@@ -3,14 +3,14 @@ package br.edu.ufcg.computacao.eureca.as.core;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyDefaults;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
 import br.edu.ufcg.computacao.eureca.as.core.role.SystemRolePlugin;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.EurecaTokenGenerator;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.PropertiesUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.ServiceAsymmetricKeysHolder;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.PropertiesUtil;
+import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.apache.log4j.Logger;
 
 import java.security.GeneralSecurityException;
@@ -44,21 +44,20 @@ public class ApplicationFacade {
                                                SystemRolePlugin systemRoleProviderPlugin) {
         // The token generator plugin generates a raw token; the wrapper adds an expiration time,
         // a signature, and encrypts the token using the public key provided by the client.
-        this.eurecaTokenGenerator = new EurecaTokenGenerator(systemIdentityProviderPlugin,
-                systemRoleProviderPlugin);
+        this.eurecaTokenGenerator = new EurecaTokenGenerator(systemIdentityProviderPlugin, systemRoleProviderPlugin);
     }
 
-    public String createToken(Map<String, String> userCredentials, String publicKey) throws EurecaAsException {
+    public String createToken(Map<String, String> userCredentials, String publicKey) throws EurecaException {
         // There is no need to authenticate the user or authorize this operation
         return this.eurecaTokenGenerator.createToken(userCredentials, publicKey);
     }
 
-    public String getPublicKey() throws InternalServerErrorAsException {
+    public String getPublicKey() throws InternalServerErrorException {
         // There is no need to authenticate the user or authorize this operation
         try {
             return CryptoUtil.toBase64(ServiceAsymmetricKeysHolder.getInstance().getPublicKey());
         } catch (GeneralSecurityException e) {
-            throw new InternalServerErrorAsException(e.getMessage());
+            throw new InternalServerErrorException(e.getMessage());
         }
     }
 

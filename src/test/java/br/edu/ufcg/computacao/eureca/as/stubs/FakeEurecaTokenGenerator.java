@@ -1,12 +1,12 @@
 package br.edu.ufcg.computacao.eureca.as.stubs;
 
 import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.EurecaAsException;
-import br.edu.ufcg.computacao.eureca.as.core.exceptions.InternalServerErrorAsException;
+import br.edu.ufcg.computacao.eureca.as.core.TokenProtector;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
-import br.edu.ufcg.computacao.eureca.as.core.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.as.core.util.HomeDir;
-import br.edu.ufcg.computacao.eureca.as.core.util.TokenProtector;
+import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
+import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
+import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
+import br.edu.ufcg.computacao.eureca.common.util.HomeDir;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +30,7 @@ public class FakeEurecaTokenGenerator {
         this.privateKey = CryptoUtil.getPrivateKey(privKeyPath);
     }
 
-    public String createToken(String publicKeyString, int duration) throws EurecaAsException {
+    public String createToken(String publicKeyString, int duration) throws EurecaException {
         String tokenAttributes = this.createToken();
         String expirationTime = generateExpirationTime(duration);
         String payload = tokenAttributes + EurecaAsConstants.PAYLOAD_SEPARATOR + expirationTime;
@@ -42,7 +42,7 @@ public class FakeEurecaTokenGenerator {
             signedUnprotectedToken = payload + EurecaAsConstants.TOKEN_SEPARATOR + signature;
             publicKey = CryptoUtil.getPublicKeyFromString(publicKeyString);
         } catch (UnsupportedEncodingException | GeneralSecurityException e) {
-            throw new InternalServerErrorAsException();
+            throw new InternalServerErrorException();
         }
         return TokenProtector.encrypt(publicKey, signedUnprotectedToken, EurecaAsConstants.TOKEN_STRING_SEPARATOR);
     }
@@ -57,7 +57,7 @@ public class FakeEurecaTokenGenerator {
         return System.currentTimeMillis();
     }
 
-    public String createToken() throws InternalServerErrorAsException {
+    public String createToken() throws InternalServerErrorException {
         String userId = "fake-userid";
         String userName = "fake-username";
 
