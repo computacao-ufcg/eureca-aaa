@@ -4,6 +4,8 @@ public class ConfigurationPropertyKeys {
     // Service configuration
     public static final String PROVIDER_ID_KEY = "provider_id";
     public static final String BUILD_NUMBER_KEY = "build_number";
+    public static final String PUBLIC_KEY_FILE_KEY = "public_key_file";
+    public static final String PRIVATE_KEY_FILE_KEY = "private_key_file";
 
     // Plugins
     public static final String SYSTEM_IDENTITY_PROVIDER_PLUGIN_CLASS_KEY = "system_identity_provider_plugin_class";

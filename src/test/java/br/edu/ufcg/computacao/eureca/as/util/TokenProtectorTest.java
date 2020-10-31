@@ -1,9 +1,7 @@
 package br.edu.ufcg.computacao.eureca.as.util;
 
-import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
-
+import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.TokenProtector;
-import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
 import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
 import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserException;
 import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
@@ -20,7 +18,7 @@ public class TokenProtectorTest {
 
     @Before
     public void setup() {
-        this.tokenSeparator = EurecaAsConstants.TOKEN_SEPARATOR;
+        this.tokenSeparator = SystemConstants.TOKEN_SEPARATOR;
     }
 
     @Test

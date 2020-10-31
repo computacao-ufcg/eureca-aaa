@@ -1,6 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.stubs;
 
-import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
+import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.TokenProtector;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
@@ -33,18 +33,18 @@ public class FakeEurecaTokenGenerator {
     public String createToken(String publicKeyString, int duration) throws EurecaException {
         String tokenAttributes = this.createToken();
         String expirationTime = generateExpirationTime(duration);
-        String payload = tokenAttributes + EurecaAsConstants.PAYLOAD_SEPARATOR + expirationTime;
+        String payload = tokenAttributes + SystemConstants.PAYLOAD_SEPARATOR + expirationTime;
         String signature = null;
         RSAPublicKey publicKey;
         String signedUnprotectedToken;
         try {
             signature = CryptoUtil.sign(this.privateKey, payload);
-            signedUnprotectedToken = payload + EurecaAsConstants.TOKEN_SEPARATOR + signature;
+            signedUnprotectedToken = payload + SystemConstants.TOKEN_SEPARATOR + signature;
             publicKey = CryptoUtil.getPublicKeyFromString(publicKeyString);
         } catch (UnsupportedEncodingException | GeneralSecurityException e) {
             throw new InternalServerErrorException();
         }
-        return TokenProtector.encrypt(publicKey, signedUnprotectedToken, EurecaAsConstants.TOKEN_STRING_SEPARATOR);
+        return TokenProtector.encrypt(publicKey, signedUnprotectedToken, SystemConstants.TOKEN_STRING_SEPARATOR);
     }
 
     private String generateExpirationTime(int duration) {

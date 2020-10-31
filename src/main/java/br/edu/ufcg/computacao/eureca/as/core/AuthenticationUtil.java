@@ -1,6 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.core;
 
-import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
+import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.common.constants.Messages;
 import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
@@ -25,12 +25,12 @@ public class AuthenticationUtil {
         try {
             privateKey = ServiceAsymmetricKeysHolder.getInstance().getPrivateKey();
             String plainTokenValue = TokenProtector.decrypt(privateKey, encryptedTokenValue,
-                    EurecaAsConstants.TOKEN_STRING_SEPARATOR);
-            String[] tokenFields = StringUtils.splitByWholeSeparator(plainTokenValue, EurecaAsConstants.TOKEN_SEPARATOR);
+                    SystemConstants.TOKEN_STRING_SEPARATOR);
+            String[] tokenFields = StringUtils.splitByWholeSeparator(plainTokenValue, SystemConstants.TOKEN_SEPARATOR);
             String payload = tokenFields[0];
             String signature = tokenFields[1];
             checkIfSignatureIsValid(asPublicKey, payload, signature);
-            String[] payloadFields = StringUtils.splitByWholeSeparator(payload, EurecaAsConstants.PAYLOAD_SEPARATOR);
+            String[] payloadFields = StringUtils.splitByWholeSeparator(payload, SystemConstants.PAYLOAD_SEPARATOR);
             String federationUserString = payloadFields[0];
             String expirationTime = payloadFields[1];
             checkIfTokenHasNotExprired(expirationTime);
@@ -44,12 +44,12 @@ public class AuthenticationUtil {
             throws InternalServerErrorException {
         String tokenAttributes = SystemUser.serialize(systemUser);
         String expirationTime = generateExpirationTime();
-        String payload = tokenAttributes + EurecaAsConstants.PAYLOAD_SEPARATOR + expirationTime;
+        String payload = tokenAttributes + SystemConstants.PAYLOAD_SEPARATOR + expirationTime;
         try {
             String signature = CryptoUtil.sign(privateKey, payload);
-            String signedUnprotectedToken = payload + EurecaAsConstants.TOKEN_SEPARATOR + signature;
+            String signedUnprotectedToken = payload + SystemConstants.TOKEN_SEPARATOR + signature;
             RSAPublicKey publicKey = CryptoUtil.getPublicKeyFromString(publicKeyString);
-            return TokenProtector.encrypt(publicKey, signedUnprotectedToken, EurecaAsConstants.TOKEN_STRING_SEPARATOR);
+            return TokenProtector.encrypt(publicKey, signedUnprotectedToken, SystemConstants.TOKEN_STRING_SEPARATOR);
         } catch (UnsupportedEncodingException | GeneralSecurityException e) {
             throw new InternalServerErrorException();
         }

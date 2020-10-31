@@ -1,6 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.core.systemidp.plugins.shibboleth;
 
-import br.edu.ufcg.computacao.eureca.as.constants.EurecaAsConstants;
+import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import org.apache.commons.lang.StringUtils;
 
 public class ShibbolethTokenHolder {
@@ -22,7 +22,7 @@ public class ShibbolethTokenHolder {
 		parameters[USER_NAME_TOKEN_VALUE_INDEX] = userName;
 		parameters[SAML_ATTRIBUTES_TOKEN_VALUE_INDEX] = samlAttributes;
 
-		return StringUtils.join(parameters, EurecaAsConstants.ATTRIBUTE_SEPARATOR);
+		return StringUtils.join(parameters, SystemConstants.ATTRIBUTE_SEPARATOR);
 	}
 
 	public static String generateTokenValue(String rawToken, String rawTokenSignature) {
@@ -30,6 +30,6 @@ public class ShibbolethTokenHolder {
 				rawToken,
 				rawTokenSignature
 		};
-		return StringUtils.join(parameters, EurecaAsConstants.ATTRIBUTE_SEPARATOR);
+		return StringUtils.join(parameters, SystemConstants.ATTRIBUTE_SEPARATOR);
 	}
 }
