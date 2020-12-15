@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = PublicKey.PUBLIC_KEY_ENDPOINT)
+@RequestMapping(value = PublicKey.ENDPOINT)
 @Api(description = ApiDocumentation.PublicKey.API)
 public class PublicKey {
-    public static final String PUBLIC_KEY_ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "publicKey";
+    public static final String ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "publicKey";
 
     private final Logger LOGGER = Logger.getLogger(PublicKey.class);
 

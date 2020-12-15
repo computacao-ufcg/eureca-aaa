@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = Token.TOKEN_ENDPOINT)
+@RequestMapping(value = Token.ENDPOINT)
 @Api(description = ApiDocumentation.Token.API)
 public class Token {
-    public static final String TOKEN_ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "tokens";
+    public static final String ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "tokens";
 
     private final Logger LOGGER = Logger.getLogger(Token.class);
 
