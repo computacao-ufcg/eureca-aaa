@@ -25,3 +25,6 @@ src/main/resources/private
 ### Log files ###
 *.log
 log.*
+
+### Mac OS files ###
+.DS_Store
