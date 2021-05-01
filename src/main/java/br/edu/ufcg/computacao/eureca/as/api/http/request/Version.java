@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = Version.VERSION_ENDPOINT)
+@RequestMapping(value = Version.ENDPOINT)
 @Api(description = ApiDocumentation.Version.API)
 public class Version {
 
-    public static final String VERSION_ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "version";
+    public static final String ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "version";
 
     private final Logger LOGGER = Logger.getLogger(Version.class);
 

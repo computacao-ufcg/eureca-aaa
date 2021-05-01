@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = Token.TOKEN_ENDPOINT)
+@RequestMapping(value = Token.ENDPOINT)
 @Api(description = ApiDocumentation.Token.API)
 public class Token {
-    public static final String TOKEN_ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "tokens";
+    public static final String ENDPOINT = SystemConstants.SERVICE_BASE_ENDPOINT + "tokens";
 
     private final Logger LOGGER = Logger.getLogger(Token.class);
 
@@ -32,7 +32,7 @@ public class Token {
             throws EurecaException {
 
         try {
-            LOGGER.info(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S, request.getCredentials().size()));
+            LOGGER.debug(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S, request.getCredentials().size()));
             String tokenValue = ApplicationFacade.getInstance().createToken(
                     request.getCredentials(), request.getPublicKey());
             br.edu.ufcg.computacao.eureca.as.api.http.response.Token token =
