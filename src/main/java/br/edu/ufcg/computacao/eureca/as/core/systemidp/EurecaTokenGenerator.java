@@ -26,7 +26,7 @@ public class EurecaTokenGenerator {
         try {
             this.privateKey = ServiceAsymmetricKeysHolder.getInstance().getPrivateKey();
         } catch (InternalServerErrorException e) {
-            throw new FatalErrorException(Messages.ERROR_READING_PRIVATE_KEY_FILE, e);
+            throw new FatalErrorException(e.getMessage(), e);
         }
         this.systemRoleProvider = systemRoleProvider;
     }
