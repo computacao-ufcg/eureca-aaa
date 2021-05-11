@@ -1,5 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.core;
 
+import br.edu.ufcg.computacao.eureca.as.api.http.request.Token;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.common.constants.Messages;
@@ -8,6 +9,7 @@ import br.edu.ufcg.computacao.eureca.common.exceptions.UnauthenticatedUserExcept
 import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
 import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.security.*;
@@ -19,11 +21,14 @@ import java.util.concurrent.TimeUnit;
 public class AuthenticationUtil {
     private static final long EXPIRATION_INTERVAL = TimeUnit.DAYS.toMillis(1); // One day
 
+    private static final Logger LOGGER = Logger.getLogger(AuthenticationUtil.class);
+
     public static SystemUser authenticate(PublicKey asPublicKey, String encryptedTokenValue)
             throws UnauthenticatedUserException {
         RSAPrivateKey privateKey = null;
         try {
             privateKey = ServiceAsymmetricKeysHolder.getInstance().getPrivateKey();
+            LOGGER.debug(String.format(Messages.ENCRYPTED_TOKEN_S_S, encryptedTokenValue, privateKey));
             String plainTokenValue = TokenProtector.decrypt(privateKey, encryptedTokenValue,
                     SystemConstants.TOKEN_STRING_SEPARATOR);
             String[] tokenFields = StringUtils.splitByWholeSeparator(plainTokenValue, SystemConstants.TOKEN_SEPARATOR);

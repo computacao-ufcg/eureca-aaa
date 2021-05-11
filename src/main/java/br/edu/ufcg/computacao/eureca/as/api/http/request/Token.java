@@ -32,11 +32,13 @@ public class Token {
             throws EurecaException {
 
         try {
-            LOGGER.debug(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S, request.getCredentials().size()));
+            LOGGER.debug(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S_S_S,
+                    request.getCredentials().size(), request.getCredentials().toString(), request.getPublicKey()));
             String tokenValue = ApplicationFacade.getInstance().createToken(
                     request.getCredentials(), request.getPublicKey());
             br.edu.ufcg.computacao.eureca.as.api.http.response.Token token =
                     new br.edu.ufcg.computacao.eureca.as.api.http.response.Token(tokenValue);
+            LOGGER.debug(String.format(Messages.GENERATED_TOKEN_S_S, tokenValue, token));
             return new ResponseEntity<>(token, HttpStatus.CREATED);
         } catch (Exception e) {
             LOGGER.info(String.format(Messages.OPERATION_RETURNED_ERROR_S, e.getMessage()), e);

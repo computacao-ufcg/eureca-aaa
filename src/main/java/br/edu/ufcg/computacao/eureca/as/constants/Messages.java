@@ -1,10 +1,13 @@
 package br.edu.ufcg.computacao.eureca.as.constants;
 
+import java.util.Locale;
+
 public class Messages {
     public static final String AUTHENTICATION_ERROR = "Authentication error.";
-    public static final String CREATE_TOKEN_REQUEST_RECEIVED_S = "Create token request received with a credentials map of size %s.";
+    public static final String CREATE_TOKEN_REQUEST_RECEIVED_S_S_S = "Create token request received with a credentials map of size %s (%s) and key %s.";
     public static final String ERROR_READING_PRIVATE_KEY_FILE = "Error reading private key file.";
     public static final String ERROR_READING_PUBLIC_KEY_FILE = "Error reading public key file.";
+    public static final String GENERATED_TOKEN_S_S = "Raw token (%s), encrypted token (%d).";
     public static final String INVALID_ALGORITHM_OR_ENCODING = "Invalid LDAP encryption algorithm or encoding.";
     public static final String INVALID_CHAR_C_FOR_RANDOM_KEY_S_AT_INDEX_D = "Invalid char \"%c\" for random key: \"%s\" at index %d.";
     public static final String INVALID_CREDENTIALS = "Invalid credentials.";
