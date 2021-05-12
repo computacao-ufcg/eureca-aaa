@@ -1,7 +1,7 @@
 FROM openjdk:8
 
-ARG EURECA_COMMON_BRANCH="develop"
-ARG EURECA_AS_BRANCH="develop"
+ARG EURECA_COMMON_BRANCH="deploy"
+ARG EURECA_AS_BRANCH="deploy"
 
 
 # Install.
@@ -32,3 +32,6 @@ RUN \
   (cd eureca-as && git checkout $EURECA_AS_BRANCH && mvn install -Dmaven.test.skip=true )
 
 WORKDIR /root/eureca-as
+
+CMD \
+  mvn spring-boot:run -X > log.out 2> log.err
