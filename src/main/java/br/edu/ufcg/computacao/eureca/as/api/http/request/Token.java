@@ -38,7 +38,7 @@ public class Token {
                     request.getCredentials(), request.getPublicKey());
             br.edu.ufcg.computacao.eureca.as.api.http.response.Token token =
                     new br.edu.ufcg.computacao.eureca.as.api.http.response.Token(tokenValue);
-            LOGGER.debug(String.format(Messages.GENERATED_TOKEN_S_S, tokenValue, token));
+            LOGGER.debug(String.format(Messages.GENERATED_TOKEN_S_S, tokenValue, token.getToken()));
             return new ResponseEntity<>(token, HttpStatus.CREATED);
         } catch (Exception e) {
             LOGGER.info(String.format(Messages.OPERATION_RETURNED_ERROR_S, e.getMessage()), e);
