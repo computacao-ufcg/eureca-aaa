@@ -1,5 +1,8 @@
 FROM openjdk:8
 
+ARG EURECA_COMMON_BRANCH
+ARG EURECA_AS_BRANCH
+
 # Install.
 RUN \
   sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list && \
