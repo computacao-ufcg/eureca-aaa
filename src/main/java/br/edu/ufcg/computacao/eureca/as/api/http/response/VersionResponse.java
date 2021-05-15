@@ -2,13 +2,13 @@ package br.edu.ufcg.computacao.eureca.as.api.http.response;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class Version {
-    @ApiModelProperty(example = "v.1.0.0-as-c803775-common-4e0d74e")
+public class VersionResponse {
+    @ApiModelProperty(example = "1.0.0-as-c803775-common-4e0d74e")
     private String version;
 
-    public Version() {}
+    public VersionResponse() {}
 
-    public Version(String version) {
+    public VersionResponse(String version) {
         this.version = version;
     }
 

@@ -1,8 +1,9 @@
 package br.edu.ufcg.computacao.eureca.as.api.http.request;
 
+import br.edu.ufcg.computacao.eureca.as.api.http.response.VersionResponse;
 import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
-import br.edu.ufcg.computacao.eureca.as.core.ApplicationFacade;
+import br.edu.ufcg.computacao.eureca.common.util.BuildNumberHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.log4j.Logger;
@@ -25,11 +26,9 @@ public class Version {
 
     @ApiOperation(value = ApiDocumentation.Version.GET_OPERATION)
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<br.edu.ufcg.computacao.eureca.as.api.http.response.Version> getVersion() {
-
-        String versionNumber = ApplicationFacade.getInstance().getVersionNumber();
-        br.edu.ufcg.computacao.eureca.as.api.http.response.Version version =
-                new br.edu.ufcg.computacao.eureca.as.api.http.response.Version(versionNumber);
-        return new ResponseEntity<>(version, HttpStatus.OK);
+    public ResponseEntity<VersionResponse> getVersion() {
+        String buildNumber = BuildNumberHolder.getInstance().getBuildNumber();
+        String versionNumber = SystemConstants.API_VERSION_NUMBER + "-" + buildNumber;
+        return new ResponseEntity<VersionResponse>(new VersionResponse(versionNumber), HttpStatus.OK);
     }
 }
