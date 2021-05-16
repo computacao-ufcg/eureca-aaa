@@ -32,8 +32,7 @@ public class Token {
             throws EurecaException {
 
         try {
-            LOGGER.debug(String.format(Messages.CREATE_TOKEN_REQUEST_RECEIVED_S_S_S,
-                    request.getCredentials().size(), request.getCredentials().toString(), request.getPublicKey()));
+            LOGGER.info(String.format(Messages.RECEIVING_CREATE_TOKEN_D, request.getCredentials().size()));
             String tokenValue = ApplicationFacade.getInstance().createToken(
                     request.getCredentials(), request.getPublicKey());
             br.edu.ufcg.computacao.eureca.as.api.http.response.Token token =
