@@ -31,7 +31,6 @@ public class TokenProtector {
     // Decrypts the token string using the provided key.
     public static String decrypt(Key key, String protectedToken, String tokenSeparator)
             throws UnauthenticatedUserException {
-        LOGGER.debug("DECRYPT!!!");
         String randomKey;
         String decryptedToken;
         String[] tokenParts = StringUtils.splitByWholeSeparator(protectedToken, tokenSeparator);
