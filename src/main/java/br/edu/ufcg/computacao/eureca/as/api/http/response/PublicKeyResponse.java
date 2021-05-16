@@ -3,13 +3,13 @@ package br.edu.ufcg.computacao.eureca.as.api.http.response;
 import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import io.swagger.annotations.ApiModelProperty;
 
-public class PublicKey {
+public class PublicKeyResponse {
     @ApiModelProperty(position = 0, example = ApiDocumentation.Model.PUBLIC_KEY)
     private String publicKey;
 
-    public PublicKey() {}
+    public PublicKeyResponse() {}
 
-    public PublicKey(String publicKey) {
+    public PublicKeyResponse(String publicKey) {
         this.publicKey = publicKey;
     }
 

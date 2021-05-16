@@ -7,7 +7,7 @@ public class SystemConstants {
     // CONFIGURATION FILES PATHS
     public static final String AS_CONF_FILE_NAME = "as.conf";
 
-    // Token  separators
+    // TokenResponse  separators
     public static final String ROLE_NAMES_SEPARATOR = ",";
     public static final String TOKEN_STRING_SEPARATOR = "!^!";
     public static final String TOKEN_SEPARATOR = "!%!";

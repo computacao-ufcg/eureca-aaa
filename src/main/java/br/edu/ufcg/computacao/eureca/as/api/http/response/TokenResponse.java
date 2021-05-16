@@ -3,13 +3,13 @@ package br.edu.ufcg.computacao.eureca.as.api.http.response;
 import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Token {
+public class TokenResponse {
     @ApiModelProperty(example = ApiDocumentation.Model.TOKEN)
     private String token;
 
-    public Token() {}
+    public TokenResponse() {}
 
-    public Token(String token) {
+    public TokenResponse(String token) {
         this.token = token;
     }
 

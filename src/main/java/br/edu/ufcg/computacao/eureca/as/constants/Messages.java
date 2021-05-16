@@ -1,7 +1,5 @@
 package br.edu.ufcg.computacao.eureca.as.constants;
 
-import java.util.Locale;
-
 public class Messages {
     public static final String AUTHENTICATION_ERROR = "Authentication error.";
     public static final String DECRYPTING_S_S = "Decrypting [%s] with key [%s].";
@@ -16,8 +14,6 @@ public class Messages {
     public static final String MISSING_LDAP_ENDPOINT = "No LDAP endpoint in configuration file.";
     public static final String OPERATION_RETURNED_ERROR_S = "Operation returned error: %s.";
     public static final String RECEIVING_CREATE_TOKEN_D = "Create token request received with a credentials map of size %sd.";
-    public static final String RECEIVING_GET_PUBLIC_KEY_REQUEST = "Get public key received.";
-    public static final String RECEIVING_GET_VERSION = "Get version received.";
     public static final String RETURNING_DECRYPTED_TOKEN_S = "Returning token [%s].";
     public static final String SECRET_ALREADY_EXISTS = "Secret already exists.";
     public static final String SECRET_CREATED_BEFORE_AS_START_TIME = "Secret was created before the start time of the AS service.";

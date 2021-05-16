@@ -2,8 +2,8 @@ package br.edu.ufcg.computacao.eureca.as.api.http.request;
 
 import br.edu.ufcg.computacao.eureca.as.api.http.response.VersionResponse;
 import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
-import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
+import br.edu.ufcg.computacao.eureca.common.constants.Messages;
 import br.edu.ufcg.computacao.eureca.common.util.BuildNumberHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
