@@ -2,20 +2,17 @@ package br.edu.ufcg.computacao.eureca.as.core;
 
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyDefaults;
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
-import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.role.SystemRolePlugin;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.EurecaTokenGenerator;
 import br.edu.ufcg.computacao.eureca.as.core.systemidp.SystemIdentityProviderPlugin;
 import br.edu.ufcg.computacao.eureca.common.exceptions.EurecaException;
 import br.edu.ufcg.computacao.eureca.common.exceptions.InternalServerErrorException;
 import br.edu.ufcg.computacao.eureca.common.util.CryptoUtil;
-import br.edu.ufcg.computacao.eureca.common.util.PropertiesUtil;
 import br.edu.ufcg.computacao.eureca.common.util.ServiceAsymmetricKeysHolder;
 import org.apache.log4j.Logger;
 
 import java.security.GeneralSecurityException;
 import java.util.Map;
-import java.util.Properties;
 
 public class ApplicationFacade {
     private final Logger LOGGER = Logger.getLogger(ApplicationFacade.class);
@@ -59,17 +56,5 @@ public class ApplicationFacade {
         } catch (GeneralSecurityException e) {
             throw new InternalServerErrorException(e.getMessage());
         }
-    }
-
-    public String getVersionNumber() {
-        // There is no need to authenticate the user or authorize this operation
-        return SystemConstants.API_VERSION_NUMBER + "-" + this.buildNumber;
-    }
-
-    // Used for testing
-    protected void setBuildNumber(String fileName) {
-        Properties properties = PropertiesUtil.readProperties(fileName);
-        this.buildNumber = properties.getProperty(ConfigurationPropertyKeys.BUILD_NUMBER_KEY,
-                ConfigurationPropertyDefaults.BUILD_NUMBER);
     }
 }

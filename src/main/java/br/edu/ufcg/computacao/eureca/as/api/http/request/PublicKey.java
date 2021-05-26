@@ -1,5 +1,6 @@
 package br.edu.ufcg.computacao.eureca.as.api.http.request;
 
+import br.edu.ufcg.computacao.eureca.as.api.http.response.PublicKeyResponse;
 import br.edu.ufcg.computacao.eureca.as.constants.ApiDocumentation;
 import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
@@ -24,13 +25,12 @@ public class PublicKey {
 
     @ApiOperation(value = ApiDocumentation.PublicKey.GET_OPERATION)
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<br.edu.ufcg.computacao.eureca.as.api.http.response.PublicKey> getPublicKey()
+    public ResponseEntity<PublicKeyResponse> getPublicKey()
             throws EurecaException {
         try {
-            LOGGER.info(Messages.RECEIVING_GET_PUBLIC_KEY_REQUEST);
+            LOGGER.info(br.edu.ufcg.computacao.eureca.common.constants.Messages.RECEIVING_GET_PUBLIC_KEY_REQUEST);
             String publicKeyValue = ApplicationFacade.getInstance().getPublicKey();
-            br.edu.ufcg.computacao.eureca.as.api.http.response.PublicKey publicKey =
-                    new br.edu.ufcg.computacao.eureca.as.api.http.response.PublicKey(publicKeyValue);
+            PublicKeyResponse publicKey = new PublicKeyResponse(publicKeyValue);
             return new ResponseEntity<>(publicKey, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.info(String.format(Messages.OPERATION_RETURNED_ERROR_S, e.getMessage()), e);

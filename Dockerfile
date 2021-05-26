@@ -1,8 +1,7 @@
 FROM openjdk:8
 
-ARG EURECA_COMMON_BRANCH="develop"
-ARG EURECA_AS_BRANCH="develop"
-
+ARG EURECA_COMMON_BRANCH
+ARG EURECA_AS_BRANCH
 
 # Install.
 RUN \
@@ -31,4 +30,13 @@ RUN \
   git clone https://github.com/computacao-ufcg/eureca-as.git && \
   (cd eureca-as && git checkout $EURECA_AS_BRANCH && mvn install -Dmaven.test.skip=true )
 
+# Generates the build number based on the commit checksum
+RUN \
+    (cd eureca-common && common_build_number=$(git rev-parse --short 'HEAD') && \
+    cd ../eureca-as && as_build_number=$(git rev-parse --short 'HEAD') && \
+    echo "build_number=as-$as_build_number-common-$common_build_number" > build)
+
 WORKDIR /root/eureca-as
+
+CMD \
+  mvn spring-boot:run -X > log.out 2> log.err
