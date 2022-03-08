@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.eureca.as.constants;
 
 public class Messages {
+    public static final String ALL_SET = "All services have been initialized.";
     public static final String AUTHENTICATION_ERROR = "Authentication error.";
     public static final String DECRYPTING_S_S = "Decrypting [%s] with key [%s].";
     public static final String ERROR_READING_PRIVATE_KEY_FILE = "Error reading private key file.";

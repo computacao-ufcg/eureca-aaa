@@ -1,6 +1,7 @@
 package br.edu.ufcg.computacao.eureca.as;
 
 import br.edu.ufcg.computacao.eureca.as.constants.ConfigurationPropertyKeys;
+import br.edu.ufcg.computacao.eureca.as.constants.Messages;
 import br.edu.ufcg.computacao.eureca.as.core.ApplicationFacade;
 import br.edu.ufcg.computacao.eureca.as.core.PluginInstantiator;
 import br.edu.ufcg.computacao.eureca.as.core.PropertiesHolder;
@@ -37,6 +38,7 @@ public class Main implements ApplicationRunner {
             // Setting up application facade
             ApplicationFacade applicationFacade = ApplicationFacade.getInstance();
             applicationFacade.initializeEurecaTokenGenerator(systemIdentityProviderPlugin, systemRoleProviderPlugin);
+            LOGGER.info(Messages.ALL_SET);
         } catch (FatalErrorException errorException) {
             LOGGER.fatal(errorException.getMessage(), errorException);
             tryExit();
