@@ -1,6 +1,5 @@
 package br.edu.ufcg.computacao.eureca.as.core;
 
-import br.edu.ufcg.computacao.eureca.as.api.http.request.Token;
 import br.edu.ufcg.computacao.eureca.as.constants.SystemConstants;
 import br.edu.ufcg.computacao.eureca.as.core.models.SystemUser;
 import br.edu.ufcg.computacao.eureca.common.constants.Messages;

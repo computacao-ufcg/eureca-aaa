@@ -6,7 +6,7 @@ import br.edu.ufcg.computacao.eureca.common.exceptions.FatalErrorException;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
-// Each package has to have its own ClassFactory
+// Each microservice has to have its own ClassFactory
 
 public class ClassFactory {
 
